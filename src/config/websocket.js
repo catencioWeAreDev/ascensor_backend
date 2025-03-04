@@ -1,7 +1,8 @@
 const WebSocket = require('ws');
+const constants = require('./constants');
 
 const setupWebSocket = (server) => {
-  const websocketState = new WebSocket.Server({ server });
+  const websocketState = new WebSocket.Server({ port: constants.PORT_WEBSOCKET });
 
   websocketState.on('connection', (websocket) => {
     console.log('Nuevo cliente conectado');

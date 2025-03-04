@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 const http = require('http');
 
 const constants = require('./config/constants');
@@ -16,6 +17,7 @@ const server = http.createServer(app);
 const websocketState = setupWebSocket(server);
 
 app.use(express.json());
+app.use(cors());
 
 setupSwagger(app);
 cacheRepository.setWebSocketServer(websocketState);

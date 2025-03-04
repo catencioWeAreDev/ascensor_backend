@@ -30,7 +30,6 @@ const postState = (req, res) => {
 const skipAscensor = (newFloorData) => {
     const oldState = ascensorRepository.getData();
     const anotherFloor = validFloorAscensorContinue(oldState);
-    console.log('anotherFloor', anotherFloor);
     if (anotherFloor){
         alterAscensorState(anotherFloor);
     } else {
@@ -38,7 +37,6 @@ const skipAscensor = (newFloorData) => {
             oldState.direction = 'stay';
             oldState.state = 0;
             oldState.open = 0;
-            console.log(`Tarea en segundo plano: skipAscensor =`, oldState);
             ascensorRepository.setData(oldState);
         }
     }
@@ -53,7 +51,6 @@ const changeCacheAscensorState = (newFloorData) => {
         setTimeout(() => skipAscensor(newFloorData), constants.SKIP_INTERVAL);
     } else {
         newState =  moveAscensor(newFloorData.floor, oldState);
-        console.log(`Tarea en segundo plano: changeCacheAscensorState =`, newState);
         ascensorRepository.setData(newState);
         setTimeout(() => changeCacheAscensorState(newFloorData), constants.MOVE_INTERVAL);
     }
@@ -73,7 +70,6 @@ const moveAscensor = (newFloor, state) => {
 };
 
 const validateAscensor = (floorData) => {
-    console.log("floorData: ", floorData)
     if (!ascensorRepository.isActive()) {
         alterAscensorState(floorData);
     }
