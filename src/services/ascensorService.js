@@ -38,6 +38,7 @@ const skipAscensor = (newFloorData) => {
             oldState.state = 0;
             oldState.open = 0;
             ascensorRepository.setData(oldState);
+            console.log(`Detener Ascensor`);
         }
     }
 };
@@ -51,6 +52,8 @@ const changeCacheAscensorState = (newFloorData) => {
         setTimeout(() => skipAscensor(newFloorData), constants.SKIP_INTERVAL);
     } else {
         newState =  moveAscensor(newFloorData.floor, oldState);
+        console.log(`Se esta Moviendo el Ascensor a piso = ${newFloorData.floor} y sentido = ${newFloorData.direction}`);
+        console.log(`Estado del Ascensor: `, oldState);
         ascensorRepository.setData(newState);
         setTimeout(() => changeCacheAscensorState(newFloorData), constants.MOVE_INTERVAL);
     }
